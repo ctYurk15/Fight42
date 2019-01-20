@@ -1,0 +1,7 @@
+C:\Users\Юра\Documents\safe\с#\programms\GAMES\Fight42\Fight42\obj\Debug\Fight42.csprojAssemblyReference.cache
+C:\Users\Юра\Documents\safe\с#\programms\GAMES\Fight42\Fight42\obj\Debug\Fight42.csproj.CoreCompileInputs.cache
+C:\Users\Юра\Documents\safe\с#\programms\GAMES\Fight42\Fight42\bin\Debug\Fight42.exe.config
+C:\Users\Юра\Documents\safe\с#\programms\GAMES\Fight42\Fight42\bin\Debug\Fight42.exe
+C:\Users\Юра\Documents\safe\с#\programms\GAMES\Fight42\Fight42\bin\Debug\Fight42.pdb
+C:\Users\Юра\Documents\safe\с#\programms\GAMES\Fight42\Fight42\obj\Debug\Fight42.exe
+C:\Users\Юра\Documents\safe\с#\programms\GAMES\Fight42\Fight42\obj\Debug\Fight42.pdb
