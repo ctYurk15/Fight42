@@ -19,26 +19,29 @@ namespace Fight42
         //game cycle, return result
         static void GameCycle()
         {
-            string act;
-            if (health[0] > 0)
+            string action = "Empty";
+            if(health[0] > 0)
             {
-                Console.WriteLine("First Player: ");
-                act = Convert.ToString(Console.ReadLine());
-                Behavior("First", act, ref health[0], ref health[1]);
+                Console.Write("|First Player  |");
+                action = Console.ReadLine();
+                Behavior("First", action, ref health[0], ref health[1]);
+                if(health[1] > 0)
+                {
+                    Console.Write("|Second Player |");
+                    action = Console.ReadLine();
+                    Behavior("Second", action, ref health[1], ref health[0]);
+                    GameCycle();
+                }
+                else
+                {
+                    Console.WriteLine("Second Player wins!");
+                }
             }
             else
             {
-                Console.WriteLine("Second Player win! P.A.K.T.E.>!!!");
+                Console.WriteLine("First Player wins!");
             }
-            if (health[1] > 0)
-            {
-                Console.WriteLine("Second Player:");
-                act = Convert.ToString(Console.ReadLine());
-                Behavior("Second", act, ref health[1], ref health[0]);
-                GameCycle();
-            }
-            else
-                Console.WriteLine("First Player win! P.A.K.T.E.!!!");
+
         }
 
         //Actions
@@ -51,15 +54,29 @@ namespace Fight42
                     Console.WriteLine($"{player} player healed self!");
                     Console.WriteLine($"First: {health[0]}hp vs Second: {health[1]}hp");
                     break;
-                case "Foot-Kick":
+                case "Kick":
                     EH = EH - 15;
                     Console.WriteLine($"{player} player kicked with foot another!");
                     Console.WriteLine($"First: {health[0]}hp vs Second: {health[1]}hp");
                     break;
-                case "Hand-Kick":
+                case "Hand-Hit":
                     EH = EH - 10;
                     Console.WriteLine($"{player} player kicked with hand another!");
                     Console.WriteLine($"First: {health[0]}hp vs Second: {health[1]}hp");
+                    break;
+                case "Vampirizm":
+                    if(EH >= 9)
+                    {
+                        EH = EH - 9;
+                        PH = PH + 9;
+                        Console.WriteLine($"{player} taked some HP from another");
+                        Console.WriteLine($"First: {health[0]}hp vs Second: {health[1]}hp");
+                    }
+                    else
+                    {
+                        EH = 0;
+                        Console.WriteLine("Another player was too weack and dead in proccess.");
+                    }
                     break;
                 default:
                     Console.WriteLine($"{player} player made nothing!");
