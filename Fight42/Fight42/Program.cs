@@ -4,15 +4,20 @@ namespace Fight42
 {
     class Program
     {
-        //variables of health players
-        public static int[] health = { 100, 100 };
-        
+        //data of players(hp, kicks, all damage)
+        public static int[] data1 = { 40, 0, 0 };
+        public static int[] data2 = { 40, 0, 0 };
+
 
         //main method
         static void Main(string[] args)
         {
             Console.WriteLine("|Welcome to Fight42! Lets Start!|");
             GameCycle();
+            Console.WriteLine("First player:");
+            Console.WriteLine($"Total kicks: {data1[1]} Total damage: {data1[2]}");
+            Console.WriteLine("Second player:");
+            Console.WriteLine($"Total kicks: {data2[1]} Total damage: {data2[2]}");
             Console.ReadKey();
         }
 
@@ -20,16 +25,16 @@ namespace Fight42
         static void GameCycle()
         {
             string action = "Empty";
-            if(health[0] > 0)
+            if(data1[0] > 0)
             {
                 Console.Write("|First Player  |: ");
                 action = Console.ReadLine();
-                Behavior("First", action, ref health[0], ref health[1]);
-                if(health[1] > 0)
+                Behavior("First", action, ref data1, ref data2);
+                if(data2[0] > 0)
                 {
                     Console.Write("|Second Player |: ");
                     action = Console.ReadLine();
-                    Behavior("Second", action, ref health[1], ref health[0]);
+                    Behavior("Second", action, ref data2, ref data1);
                     GameCycle();
                 }
                 else
@@ -45,78 +50,91 @@ namespace Fight42
         }
 
         //Actions
-        static void Behavior(string player, string do_act, ref int PH, ref int EH)
+        static void Behavior(string player, string do_act, ref int[] PD, ref int[] ED)
         {
             switch(do_act)
             {
                 //healthing
                 case "Health":
                     //-----------//  dont let up HP higher than 100                       
-                    if (PH < 89)                          
+                    if (PD[0] < 89)                          
                     {                                       
-                        PH += 12;                          
+                        PD[0] += 12;                          
                         Console.WriteLine("|+12 HP|");    
                     }
                     else
                     {
-                        Console.WriteLine($"|+{100 - PH}|");
-                        PH = 100;
+                        Console.WriteLine($"|+{100 - PD[0]}|");
+                        PD[0] = 100;
                     }
                     //---------//
                     Console.WriteLine($"|{player} player healed self!|");
-                    Console.WriteLine($"First: {health[0]}hp vs Second: {health[1]}hp");
+                    Console.WriteLine($"First: {data1[0]}hp vs Second: {data2[0]}hp");
                     break;
                 //kicking
                 case "Kick":
-                    if(EH <= 15)
+                    PD[1] += 1;
+                    if (ED[0] <= 15)
                     {
+                        PD[2] = ED[0] - 15;
                         Console.WriteLine("|Footballer fatality!|");
                     }
                     else
                     {
+                        PD[2] += 15;
                         Console.WriteLine($"|-15 HP|\n|{player} player kicked with foot another!|");
                     }
-                    EH = EH - 15;
-                    Console.WriteLine($"|First: {health[0]}hp vs Second: {health[1]}hp|");
+                    ED[0] = ED[0] - 15;
+                    Console.WriteLine($"|First: {data1[0]}hp vs Second: {data2[0]}hp|");
                     break;
                 //hit with hand
                 case "Hand-Hit":
-                    if (EH <= 10)
+                    PD[1] += 1;
+                    if (ED[0] <= 10)
+                    {
+                        PD[2] += ED[0] - 10;
                         Console.WriteLine("Boxer Fatality!");
+                    }
                     else
+                    {
+                        PD[2] += 10;
                         Console.WriteLine($"|-10 HP|\n|{player} player kicked with hand another!|");
-                    EH = EH - 10;
-                    Console.WriteLine($"|First: {health[0]}hp vs Second: {health[1]}hp|");
+                    }
+                    ED[0] = ED[0] - 10;
+                    Console.WriteLine($"|First: {data1[0]}hp vs Second: {data2[0]}hp|");
                     break;
                 //vampirizm
                 case "Vampirizm":
-                    if(EH >= 9)
+                    PD[1] += 1;
+                    if(ED[0] >= 9)
                     {
-                        EH = EH - 9;
-                        if(PH < 92)
+                        ED[0] = ED[0] - 9;
+                        PD[2] += 9;
+                        if(PD[0] < 92)
                         {
-                            PH = PH + 9;
+                            PD[0] = PD[0] + 9;
                             Console.WriteLine("|+9 HP|");
                         }
                         else
                         {
-                            Console.WriteLine($"|+{100 - PH}|");
-                            PH = 100;
+                            Console.WriteLine($"|+{100 - PD[0]}|");
+                            PD[0] = 100;
                         }
                         Console.WriteLine("|-9 HP|");
                         Console.WriteLine($"|{player} taked some HP from another|");
-                        Console.WriteLine($"|First: {health[0]}hp vs Second: {health[1]}hp|");
+                        Console.WriteLine($"|First: {data1[0]}hp vs Second: {data2[0]}hp|");
                     }
                     else
                     {
-                        EH = 0;
+                        PD[2] += ED[0];
+                        ED[0] = 0;
                         Console.WriteLine("|Another player was too weak and dead in proccess.|\n|Vampir Fatality!|");
                     }
                     break;
                 //nothing
                 default:
                     Console.WriteLine($"{player} player made nothing!");
-                    Console.WriteLine($"First: {health[0]}hp vs Second: {health[1]}hp");
+                    Console.WriteLine($"First: {data1[0]}hp vs Second: {data2[0]}hp");
                     break;
             }
         }
