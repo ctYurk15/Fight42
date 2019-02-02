@@ -13,17 +13,30 @@ namespace Fight42
         //make power of players bigger
         static void ivents()
         {
+            //kicks
             if(data1[1] > norma)
             {
                 data1[3] += 0.5;
                 norma = norma * 2;
-                Console.WriteLine("Force of First player is bigger!");
+                Console.WriteLine("|Force of First player is bigger!|");
             }
             else if(data2[1] > norma)
             {
                 data1[3] += 0.5;
                 norma = norma * 2;
-                Console.WriteLine("Force of Second player  is bigger!");
+                Console.WriteLine("|Force of Second player  is bigger!|");
+            }
+
+            //weaking
+            if(data1[0] < 10)
+            {
+                data1[3] -= 0.2;
+                Console.WriteLine("|First player is weaking!|");
+            }
+            else if (data2[0] < 10)
+            {
+                data2[3] -= 0.2;
+                Console.WriteLine("|Second player is weaking!|");
             }
         }
 
@@ -39,18 +52,23 @@ namespace Fight42
             Console.WriteLine("-------------------------------------------------");
         }
 
+        static void End_statistics(string winner)
+        {
+            Console.WriteLine($"|Winner - {winner} player|");
+            Console.WriteLine("|First player:|");
+            Console.WriteLine($"|Total kicks: {data1[1]} Total damage: {data1[2]}|");
+            Console.WriteLine("|Second player:|");
+            Console.WriteLine($"|Total kicks: {data2[1]} Total damage: {data2[2]}|");
+        }
+
 
         //main method
         static void Main(string[] args)
         {
             lOGO();
-            Console.WriteLine("|Welcome to Fight42! Lets Start!|");
+            Console.WriteLine("|Welcome to Fight42!|\n|Press Enter to start!|");
+            Console.ReadKey();
             GameCycle();
-            Console.WriteLine("First player:");
-            Console.WriteLine($"Total kicks: {data1[1]} Total damage: {data1[2]}");
-            Console.WriteLine("Second player:");
-            Console.WriteLine($"Total kicks: {data2[1]} Total damage: {data2[2]}");
-            lOGO();
             Console.ReadKey();
         }
 
@@ -74,14 +92,23 @@ namespace Fight42
                 }
                 else
                 {
-                    Console.WriteLine("|First Player wins!|");
+                    End_statistics("First");
                 }
             }
             else
             {
-                Console.WriteLine("|Second Player wins!|");
+                End_statistics("Second");
             }
 
+            Console.WriteLine("|Do you what again?|");
+            string chs = Console.ReadLine();
+            if (chs == "yes")
+            {
+                data1[0] = data2[0] = 100;
+                data1[1] = data1[2] = data2[1] = data2[2] = 0;
+                data1[3] = data2[3] = 1;
+            }
+                GameCycle();
         }
 
         //Actions
