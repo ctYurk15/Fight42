@@ -7,28 +7,46 @@ namespace Fight42
         //data of players(hp, kicks, all damage, coeficient of damage)
         public static double[] data1 = { 100.0, 0.0, 0.0, 1.0 };
         public static double[] data2 = { 100.0, 0.0, 0.0, 1.0 };
-        //just norma
-        public static int norma = 2;
+
+        //just norma for kicks
+        public static int kicks_norma = 6;
+
+        //just norma for damage
+        public static int damage_norma = 30;
 
         //make power of players bigger
         static void ivents()
         {
             //kicks
-            if(data1[1] > norma)
+            if(data1[1] > kicks_norma)
             {
                 data1[3] += 0.5;
-                norma = norma * 2;
+                kicks_norma = kicks_norma * 2;
                 Console.WriteLine("|Force of First player is bigger!|");
             }
-            else if(data2[1] > norma)
+            else if(data2[1] > kicks_norma)
             {
-                data1[3] += 0.5;
-                norma = norma * 2;
+                data2[3] += 0.5;
+                kicks_norma = kicks_norma * 2;
                 Console.WriteLine("|Force of Second player  is bigger!|");
             }
 
+            //damage
+            if(data1[2] > damage_norma)
+            {
+                damage_norma = damage_norma + (damage_norma / 2);
+                data1[0] += 5;
+                Console.WriteLine("|First player get + 5HP!|");
+            }
+            else if (data2[2] > damage_norma)
+            {
+                damage_norma = damage_norma + (damage_norma / 2);
+                data2[0] += 5;
+                Console.WriteLine("|Second player get + 5HP!|");
+            }
+
             //weaking
-            if(data1[0] < 10)
+            if (data1[0] < 10)
             {
                 data1[3] -= 0.2;
                 Console.WriteLine("|First player is weaking!|");
@@ -152,8 +170,8 @@ namespace Fight42
                     break;
                 //hit with hand
                 case "Hand-Hit":
-                    PD[1] += 1;
-                    if (ED[0] <= 10 * PD[3])
+                    PD[1] += 2;
+                    if (ED[0] <= 8 * PD[3])
                     {
                         PD[2] += ED[0];
                         ED[0] = 0;
@@ -161,9 +179,9 @@ namespace Fight42
                     }
                     else
                     {
-                        PD[2] += 10 * PD[3];
-                        Console.WriteLine($"|-{10 * PD[3]} HP|\n|{player} player kicked with hand another!|");
-                        ED[0] = ED[0] - 10 * PD[3];
+                        PD[2] += 8 * PD[3];
+                        Console.WriteLine($"|-{8 * PD[3]} HP|\n|{player} player kicked with hand another!|");
+                        ED[0] = ED[0] - 8 * PD[3];
                         Console.WriteLine($"|First: {data1[0]}hp vs Second: {data2[0]}hp|");
                     }
                     break;
