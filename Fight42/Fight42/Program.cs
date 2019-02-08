@@ -5,8 +5,8 @@ namespace Fight42
     class Program
     {
         //data of players(hp, kicks, all damage, coeficient of damage)
-        public static double[] data1 = { 100.0, 0.0, 0.0, 1.0 };
-        public static double[] data2 = { 100.0, 0.0, 0.0, 1.0 };
+        public static double[] data1 = { 10.0, 0.0, 0.0, 1.0 };
+        public static double[] data2 = { 10.0, 0.0, 0.0, 1.0 };
 
         //just norma for kicks
         public static int kicks_norma = 6;
@@ -22,13 +22,13 @@ namespace Fight42
             {
                 data1[3] += 0.5;
                 kicks_norma = kicks_norma * 2;
-                Console.WriteLine("|Force of First player is bigger!|");
+                Console.WriteLine($"|Force of First player is bigger than before!(multiplier = {data1[3]})|");
             }
             else if(data2[1] > kicks_norma)
             {
                 data2[3] += 0.5;
                 kicks_norma = kicks_norma * 2;
-                Console.WriteLine("|Force of Second player  is bigger!|");
+                Console.WriteLine($"|Force of Second player  is bigger!(multiplier = {data2[3]})|");
             }
 
             //damage
@@ -49,12 +49,12 @@ namespace Fight42
             if (data1[0] < 10)
             {
                 data1[3] -= 0.2;
-                Console.WriteLine("|First player is weaking!|");
+                Console.WriteLine($"|First player is weaking!(multiplier = {data1[3]})|");
             }
             else if (data2[0] < 10)
             {
                 data2[3] -= 0.2;
-                Console.WriteLine("|Second player is weaking!|");
+                Console.WriteLine($"|Second player is weaking!(multiplier = {data2[3]})|");
             }
         }
 
@@ -125,8 +125,12 @@ namespace Fight42
                 data1[0] = data2[0] = 100;
                 data1[1] = data1[2] = data2[1] = data2[2] = 0;
                 data1[3] = data2[3] = 1;
-            }
+                kicks_norma = 6;
+                damage_norma = 30;
+                Console.WriteLine("Lets do it!");
                 GameCycle();
+            }
+                
         }
 
         //Actions
